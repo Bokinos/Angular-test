@@ -1,0 +1,12 @@
+@if (conference(); as c) {
+  <article class="detail-card">
+    <div class="detail-heading"><div><span class="eyebrow">Conference spotlight</span><h2>{{ title() }}</h2></div><span class="live-dot">UPCOMING</span></div>
+    <p class="description">{{ c.description }}</p>
+    <div class="facts"><div><span class="label">SPEAKER</span><strong>{{ c.speaker | uppercase }}</strong></div><div><span class="label">DATE</span><strong>{{ c.date | date:'EEE, d MMM yyyy · HH:mm' }}</strong></div><div><span class="label">LOCATION</span><strong>{{ c.place }}</strong></div><div><span class="label">PLACES LEFT</span><strong>{{ placesLeft() }}</strong></div></div>
+    <label class="rename">Try two-way binding <span>Update the title</span><input [(ngModel)]="titleDraft" (ngModelChange)="title.set($event)" aria-label="Edit conference title" /></label>
+    <div class="action-row"><button type="button" class="register" [class.green]="placesLeft() >= 10" [class.orange]="placesLeft() > 0 && placesLeft() < 10" [class.red]="placesLeft() === 0" [disabled]="placesLeft() === 0" (click)="register()">{{ placesLeft() === 0 ? 'Fully booked' : 'Reserve a place' }} <span>→</span></button><small>{{ c.maxParticipants - placesLeft() }} / {{ c.maxParticipants }} registered</small></div>
+    @if (message()) { <p class="message" role="status">{{ message() }}</p> }
+  </article>
+} @else {
+  <article class="detail-card empty-detail"><span class="eyebrow">Conference spotlight</span><p>Choose a conference to see the full details.</p></article>
+}

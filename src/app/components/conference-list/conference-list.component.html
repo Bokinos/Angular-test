@@ -1,0 +1,17 @@
+<section id="conferences" class="catalog">
+  <div class="catalog-heading"><div><span class="eyebrow">Your next great conversation</span><h2>Upcoming conferences</h2></div><span class="count">{{ conferences().length }} EVENTS</span></div>
+  <p class="intro">Find your next idea, meet your people, and make something happen.</p>
+  <div class="conference-list">
+    @for (c of conferences(); track c.title) {
+      <button type="button" class="conference" [class.selected]="selectedId() === c.id" (click)="select(c)" [attr.aria-pressed]="selectedId() === c.id">
+        <span class="calendar"><strong>{{ c.date | date:'dd' }}</strong><small>{{ c.date | date:'MMM' | uppercase }}</small></span>
+        <span class="conference-copy"><strong>{{ c.title }}</strong><small>{{ c.speaker }} · {{ c.place }}</small></span>
+        <span class="seats" [class.seats-low]="placesLeft(c) < 10 && placesLeft(c) > 0" [class.seats-full]="placesLeft(c) === 0">{{ placesLeft(c) === 0 ? 'Full' : placesLeft(c) + ' seats' }}</span>
+        <span class="chevron">›</span>
+      </button>
+    } @empty {
+      <div class="no-events"><span>✳</span><strong>No upcoming conferences yet</strong><small>Check back soon for the next ConfTech events.</small></div>
+    }
+  </div>
+  <app-conference-detail [conference]="selected()" />
+</section>

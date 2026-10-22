@@ -1,59 +1,45 @@
-# Test
+# ConfTech Prosits
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+This Angular project brings the five ConfTech exercises together in one small conference-management interface. The UI demonstrates the requested Angular mechanisms; the notes below provide the explanations for a written submission. The assignment documents define the classroom scenarios, while the implementation follows the user's project brief and keeps the examples runnable together.
 
-## Development server
-
-To start a local development server, run:
+## Run the app
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The project currently uses Angular 19 dependencies. Its standalone components support the signal, input, and native control-flow APIs used here. The assignment sheets mention Angular 21; the examples use APIs compatible with this repository's installed Angular version.
 
-## Code scaffolding
+## Prosit 1: Components
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The root template composes `HeaderComponent`, `NavbarComponent`, `UserProfileComponent`, `FriendsListComponent`, `NotificationsComponent`, `ConferenceListComponent`, and `FooterComponent`. Each standalone component has a focused template and can be composed by selector from another component. This keeps one large page from becoming a single difficult-to-maintain component. Small parts can be reused on other pages, maintained independently, and developed by different teammates.
 
-```bash
-ng generate component component-name
-```
+## Prosit 2: Data binding and signals
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+`ConferenceDetailComponent` stores the editable title in a signal and renders it with `{{ title() }}`. The input uses `[(ngModel)]` for immediate text-field updates, with `FormsModule` imported by the standalone component; the `ngModelChange` handler writes the new value to the signal. The reserve button uses `(click)="register()"` for event binding and `[disabled]="placesLeft() === 0"` for property binding. `@if` conditionally displays the selected conference and its confirmation message.
 
-```bash
-ng generate --help
-```
+The four binding forms serve different directions: interpolation sends component values into text; property binding sets a DOM or component property; event binding sends user actions into component code; two-way binding keeps a form control and a component value synchronized.
 
-## Building
+## Prosit 3: Control flow and pipes
 
-To build the project run:
+`Conference` defines the conference data shape. `ConferenceService` exposes upcoming conferences only, filtering out past dates. The list uses `@for (c of conferences(); track c.title)` and `@empty` for the no-results case. The detail formats the speaker and date with `uppercase` and `date` pipes. The class bindings assign green when at least ten places remain, orange when one to nine remain, and red when full. Native control flow makes conditional and repeated template regions explicit; pipes format presentation without mutating the stored data.
 
-```bash
-ng build
-```
+## Prosit 4: Component communication
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+`ConferenceListComponent` owns the selected-conference signal and passes its value to `ConferenceDetailComponent` using `[conference]="selected()"`. The detail declares `conference = input<Conference | null>(null)`, so selecting a row updates the child automatically.
 
-## Running unit tests
+Use `input()` when a parent supplies data to a child. Use `output()` when a child reports an event to its parent, such as a selected ID or a completed action. Use `model()` when the parent and child need a shared two-way value, such as an editable setting. Prefer the simplest direction that matches the data flow.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Prosit 5: Services and dependency injection
 
-```bash
-ng test
-```
+The original design's problems are duplicated filtering, data and booking logic tied to a display component, manual construction with `new ConferenceListComponent()`, unsynchronized navbar and catalog state, brittle unit tests, and a violation of the Single Responsibility Principle.
 
-## Running end-to-end tests
+`ConferenceService` owns the conference data and upcoming-date filtering. `BookingService` owns shared reservation state as a signal and derives `bookedCount` with `computed`. The list and navbar use `inject()` to consume those services. Both services use `providedIn: 'root'`, which gives the application one shared instance of each service. Providing them separately in component-level `providers` would create separate instances and split booking state again. Components handle display and user interaction; services own reusable application data and behavior.
 
-For end-to-end (e2e) testing, run:
+## Implementation map
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `src/app/components/`: page sections, conference list, and conference detail.
+- `src/app/models/conference.ts`: conference data type.
+- `src/app/services/`: root-scoped conference and booking services.
+- `src/app/app.component.html`: composition of the page components.

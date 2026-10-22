@@ -1,0 +1,4 @@
+:host { display: block; min-height: 100vh; }
+.layout { width: min(1180px, calc(100% - 40px)); margin: 30px auto 64px; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 30px; align-items: start; }
+.sidebar { display: grid; gap: 16px; }
+@media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
