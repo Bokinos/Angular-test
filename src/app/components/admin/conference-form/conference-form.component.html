@@ -1,0 +1,57 @@
+<h1>Créer une conférence</h1>
+
+<form #conferenceForm="ngForm" (ngSubmit)="createConference(conferenceForm)">
+  <p>
+    <label for="title">Titre</label><br />
+    <input id="title" name="title" [(ngModel)]="form.title" required minlength="3" #title="ngModel" />
+  </p>
+  @if (title.invalid && title.touched) {
+    <p>Le titre est obligatoire et doit contenir au moins 3 caractères.</p>
+  }
+
+  <p>
+    <label for="description">Description</label><br />
+    <textarea id="description" name="description" [(ngModel)]="form.description" required #description="ngModel"></textarea>
+  </p>
+  @if (description.invalid && description.touched) {
+    <p>La description est obligatoire.</p>
+  }
+
+  <p>
+    <label for="date">Date et heure</label><br />
+    <input id="date" type="datetime-local" name="date" [(ngModel)]="form.date" required #date="ngModel" />
+  </p>
+  @if (date.invalid && date.touched) {
+    <p>La date et l'heure sont obligatoires.</p>
+  }
+
+  <p>
+    <label for="place">Lieu</label><br />
+    <input id="place" name="place" [(ngModel)]="form.place" required #place="ngModel" />
+  </p>
+  @if (place.invalid && place.touched) {
+    <p>Le lieu est obligatoire.</p>
+  }
+
+  <p>
+    <label for="speaker">Intervenant</label><br />
+    <input id="speaker" name="speaker" [(ngModel)]="form.speaker" required #speaker="ngModel" />
+  </p>
+  @if (speaker.invalid && speaker.touched) {
+    <p>Le nom de l'intervenant est obligatoire.</p>
+  }
+
+  <p>
+    <label for="maxParticipants">Nombre maximum de participants</label><br />
+    <input id="maxParticipants" type="number" name="maxParticipants" [(ngModel)]="form.maxParticipants" required min="1" step="1" #maxParticipants="ngModel" />
+  </p>
+  @if (maxParticipants.invalid && maxParticipants.touched) {
+    <p>Indiquez un nombre entier supérieur ou égal à 1.</p>
+  }
+
+  <button type="submit" [disabled]="conferenceForm.invalid">Créer</button>
+</form>
+
+@if (successMessage) {
+  <p role="status">{{ successMessage }}</p>
+}

@@ -1,0 +1,22 @@
+<h1>Events</h1>
+
+@if (errorMessage()) {
+  <p role="alert">{{ errorMessage() }}</p>
+}
+
+@if (events$ | async; as events) {
+  <ul>
+    @for (event of events; track event.id) {
+      <li>
+        <h2>{{ event.title }}</h2>
+        <p>{{ event.description }}</p>
+        <p>Lieu : {{ event.location }}</p>
+        <p>Date : {{ event.date }}</p>
+        <p>Prix : {{ event.price }}</p>
+        <p>Places : {{ event.nbPlaces }}</p>
+      </li>
+    } @empty {
+      <li>Aucun événement trouvé.</li>
+    }
+  </ul>
+}

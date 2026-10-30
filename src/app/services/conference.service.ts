@@ -24,4 +24,9 @@ export class ConferenceService {
     return this.conferenceState().find(conference => conference.id === id);
   }
 
+  addConference(conference: Omit<Conference, 'id' | 'nbParticipants'>): void {
+    const id = Math.max(0, ...this.conferenceState().map(item => item.id)) + 1;
+    this.conferenceState.update(items => [...items, { ...conference, id, nbParticipants: 0 }]);
+  }
+
 }

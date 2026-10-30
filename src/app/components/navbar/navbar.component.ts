@@ -11,6 +11,7 @@ import { BookingService } from '../../services/booking.service';
       <div class="links">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
         <a routerLink="/conferences" routerLinkActive="active">Conference</a>
+        <a routerLink="/events" routerLinkActive="active">Events</a>
         <a routerLink="/profile" routerLinkActive="active">Profile</a>
         <a routerLink="/admin" routerLinkActive="active">Admin</a>
       </div>

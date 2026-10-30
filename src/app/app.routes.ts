@@ -17,6 +17,7 @@ class ConferencesPageComponent {}
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'conferences' },
   { path: 'conferences', component: ConferencesPageComponent },
+  { path: 'events', loadComponent: () => import('./components/events/events.component').then(m => m.EventsComponent) },
   { path: 'profile', component: UserProfileComponent },
   { path: 'admin', loadChildren: () => import('./components/admin/admin.routes').then(m => m.routes) },
   { path: 'inscription/:id', component: InscriptionComponent },

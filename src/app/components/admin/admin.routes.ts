@@ -11,7 +11,7 @@ export const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: '', pathMatch: 'full', component: EmptyAdminPageComponent },
-      { path: 'conferences', component: EmptyAdminPageComponent },
+      { path: 'conferences', loadComponent: () => import('./conference-form/conference-form.component').then(m => m.ConferenceFormComponent) },
     ],
   },
 ];

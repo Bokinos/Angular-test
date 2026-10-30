@@ -1,0 +1,11 @@
+{"events": [
+    {
+        "id": 1,
+        "title": "Angular Workshop",
+        "description": "A hands-on workshop on Angular framework.", 
+        "location": "New York City",
+        "date": "2024-07-15",
+        "price": 99.99,
+        "nbPlaces": 50
+    }
+]}
