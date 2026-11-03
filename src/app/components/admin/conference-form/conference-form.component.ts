@@ -9,31 +9,28 @@ import { ConferenceService } from '../../../services/conference.service';
   templateUrl: './conference-form.component.html',
 })
 export class ConferenceFormComponent {
-  private readonly conferenceService = inject(ConferenceService);
-
-  form = {
-    title: '',
-    description: '',
-    date: '',
-    place: '',
-    speaker: '',
-    maxParticipants: 1,
-  };
+  private service = inject(ConferenceService);
   successMessage = '';
+  form = { title: '', description: '', date: '', place: '', speaker: '', maxParticipants: 1 };
 
-  createConference(conferenceForm: NgForm): void {
-    if (conferenceForm.invalid) return;
+  createConference(f: NgForm): void {
+    if (f.invalid) return;
 
-    this.conferenceService.addConference({
-      title: this.form.title.trim(),
-      description: this.form.description.trim(),
-      date: new Date(this.form.date).toISOString(),
-      place: this.form.place.trim(),
-      speaker: this.form.speaker.trim(),
-      maxParticipants: Number(this.form.maxParticipants),
+    this.service.addConference({
+      id: 0,
+      title: this.form.title,
+      description: this.form.description,
+      date: this.form.date,
+      place: this.form.place,
+      speaker: this.form.speaker,
+      maxParticipants: this.form.maxParticipants,
+      nbParticipants: 0,
+    }).subscribe({
+      next: () => {
+        this.successMessage = 'La conférence a été créée.';
+        f.resetForm();
+      },
+      error: () => this.successMessage = 'Erreur lors de la création.'
     });
-
-    this.successMessage = 'La conférence a été créée.';
-    conferenceForm.resetForm({ ...this.form, title: '', description: '', date: '', place: '', speaker: '', maxParticipants: 1 });
   }
 }

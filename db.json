@@ -1,11 +1,65 @@
-{"events": [
+{
+  "events": [
     {
-        "id": 1,
-        "title": "Angular Workshop",
-        "description": "A hands-on workshop on Angular framework.", 
-        "location": "New York City",
-        "date": "2024-07-15",
-        "price": 99.99,
-        "nbPlaces": 50
+      "id": 1,
+      "title": "Angular Workshop",
+      "description": "A hands-on workshop on Angular framework.",
+      "location": "New York City",
+      "date": "2024-07-15",
+      "price": 99.99,
+      "nbPlaces": 50
     }
-]}
+  ],
+  "conferences": [
+    {
+      "id": 1,
+      "title": "Building Useful AI Agents",
+      "description": "Patterns for reliable, human-centered agent systems.",
+      "date": "2026-11-11T00:00:00.000Z",
+      "place": "Tunis · Main stage",
+      "speaker": "Amira Ben Salem",
+      "maxParticipants": 120,
+      "nbParticipants": 78
+    },
+    {
+      "id": 2,
+      "title": "The Future of Angular",
+      "description": "Signals, standalone components, and modern application design.",
+      "date": "2026-12-04T00:00:00.000Z",
+      "place": "Tunis · Room Atlas",
+      "speaker": "Youssef Trabelsi",
+      "maxParticipants": 80,
+      "nbParticipants": 74
+    },
+    {
+      "id": 3,
+      "title": "Designing for the Web",
+      "description": "A practical session on accessible and inclusive interfaces.",
+      "date": "2026-12-31T00:00:00.000Z",
+      "place": "Sousse · Studio 2",
+      "speaker": "Lina Gharbi",
+      "maxParticipants": 100,
+      "nbParticipants": 100
+    },
+    {
+      "id": 4,
+      "title": "Cloud Native Tunisia",
+      "description": "From containers to observable production systems.",
+      "date": "2025-05-14T10:00:00.000Z",
+      "place": "Tunis · Room Carthage",
+      "speaker": "Karim Mansour",
+      "maxParticipants": 90,
+      "nbParticipants": 41
+    },
+    {
+      "title": "aziz",
+      "description": "azizi",
+      "date": "2026-11-04T09:10:00.000Z",
+      "place": "azzzz",
+      "speaker": "zzzz",
+      "maxParticipants": 200,
+      "nbParticipants": 0,
+      "id": 5
+    }
+  ]
+}
